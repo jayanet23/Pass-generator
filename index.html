@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,26 +71,73 @@
             cursor: pointer;
         }
 
+        .input-group i:hover {
+            color: #06754c;
+        }
+
         .container button {
             width: 60%;
             padding: .9rem 2rem;
             background-color: #06754c;
             border-radius: .2rem;
-            border:transparent;
+            border: transparent;
             color: #fff;
             font-size: 1rem;
             cursor: pointer;
         }
+
+        .container button:hover {
+            background-color: #08b576;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <p>Generate a <br> <span>Random Password <hr></span></p>
+        <p>Generate a <br> <span>Random Password
+                <hr>
+            </span></p>
         <div class="input-group">
-            <input type="text" placeholder="Password">
+            <input type="text" placeholder="Password" class="input">
             <i class="bi bi-copy"></i>
         </div>
-        <button><i class="bi bi-lightning-fill"></i> Generate Password</button>
+        <button class="btn-generate"><i class="bi bi-lightning-fill"></i> Generate Password</button>
     </div>
+
+    <script>
+
+        const btnGenerate = document.querySelector('.btn-generate');
+        const input = document.querySelector('.input');
+        const btnCopy = document.querySelector('.bi-copy');
+
+        btnGenerate.addEventListener('click', function () {
+            const character = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()_+";
+            let password = "";
+            const length = 12;
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * character.length);
+                password += character[randomIndex];
+            }
+            input.value = password;
+        })
+
+        btnCopy.addEventListener('click', function () {
+            if(input.value === '') {
+                alert('harap generate password terlebih dahulu!');
+            }
+
+            navigator.clipboard.writeText(input.value)
+            .then(() => {
+                alert('password berhasil di salin!');
+            })
+            .catch((err) => {
+                alert(err);
+            })
+        })
+
+
+
+    </script>
 </body>
+
 </html>
